@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>4.拖拽</title>
+	<link rel="stylesheet" href="css/reset.css">
+<style>
+
+	#login {
+	  width: 400px;
+	  height: 300px;
+	  background: pink;
+	  position: absolute;
+	  left: 500px;
+	  top: 100px;
+	  /*display: none;*/
+	  z-index: 9999;
+	  -webkit-border-radius: 20px;
+	  -moz-border-radius: 20px;
+	  -o-border-radius: 20px;
+	  border-radius: 20px;
+	}
+	#login h2 {
+	  font-size: 18px;
+	  font-weight: bold;
+	  font-family: "微软雅黑";
+	  text-align: center;
+	  height: 40px;
+	  line-height: 40px;
+	  background: #0ff;
+	  color: #333;
+	  letter-spacing: 1px;
+	  margin-bottom: 20px;
+	  -webkit-border-radius: 20px;
+	  -moz-border-radius: 20px;
+	  -o-border-radius: 20px;
+	  border-radius: 20px;
+	  cursor: move;
+	}
+	#login h2 img {
+	  position: absolute;
+	  float: right;
+	  top: 10px;
+	  right: 10px;
+	  cursor: pointer;
+	  -webkit-transform: rotate(0) scale(1, 1);
+	  -moz-transform: rotate(0) scale(1, 1);
+	  -o-transform: rotate(0) scale(1, 1);
+	  transform: rotate(0) scale(1, 1);
+	  -webkit-transition: transform 2s 0 0;
+	  -moz-transition: transform 2s 0 0;
+	  -o-transition: transform 2s 0 0;
+	  transition: transform 2s 0 0;
+	}
+	#login h2 img:hover {
+	  -webkit-transform: rotate(150deg) scale(1, 1);
+	  -moz-transform: rotate(150deg) scale(1, 1);
+	  -o-transform: rotate(150deg) scale(1, 1);
+	  transform: rotate(150deg) scale(1, 1);
+	}
+	#login .user,
+	#login .password,
+	#login .button {
+	  font-size: 14px;
+	  font-weight: bold;
+	  font-family: "微软雅黑";
+	  letter-spacing: 1px;
+	  color: #666;
+	  padding: 10px 0;
+	  text-align: center;
+	}
+	#login input {
+	  font-size: 14px;
+	  font-weight: none;
+	  font-family: "微软雅黑";
+	  letter-spacing: 1px;
+	}
+	#login .text {
+	  width: 250px;
+	  height: 35px;
+	  background: #FFF;
+	  border: none;
+	  -webkit-border-radius: 10px;
+	  -moz-border-radius: 10px;
+	  -o-border-radius: 10px;
+	  border-radius: 10px;
+	}
+	#login .submit {
+	  text-align: center;
+	  margin: 10px auto;
+	}
+	#login .button {
+	  width: 150px;
+	  background: #42D77B;
+	  border: none;
+	  -webkit-border-radius: 10px;
+	  -moz-border-radius: 10px;
+	  -o-border-radius: 10px;
+	  border-radius: 10px;
+	}
+	#login .help {
+	  font-size: 12px;
+	  font-weight: bold;
+	  font-family: "微软雅黑";
+	  letter-spacing: 1px;
+	  float: right;
+	  padding: 25px 20px;
+	  cursor: pointer;
+	  color: #666;
+	}
+</style>
+</head>
+<body>
+	<div id="login">
+		<h2>用户登陆<img src="img/delete.png" alt="" class="close"></h2>
+		<div class="user">账 号: <input type="text" name="user" class="text"></div>
+		<div class="password">密 码: <input type="password" name="pass" class="text"></div>
+		<div class="submit"><input type="submit" class="button" value="登 陆"></div>
+		<div class="help">注册账号|忘记密码</div>
+	</div>
+
+
+<script>
+	//登陆框拖拽
+	/*************************************************
+	//1.鼠标点下去
+	//2.点下的物体被选中，进行move操作
+	//3.抬起鼠标，停止移动
+	//鼠标点击某个盒子是局部的，而move和up是全局区域，也就是整个文档通用，用document
+	**************************************************/
+	var oDiv = document.getElementById('login');
+
+	oDiv.onmousedown = function(e){
+		var e = e || event;
+		var _this = this;
+
+		var difX = e.clientX - _this.offsetLeft;
+		var difY = e.clientY - _this.offsetTop;
+
+		document.onmousemove = function(e){
+			var e = e || event;
+
+			_this.style.left = e.clientX - difX + 'px';
+			_this.style.top = e.clientY - difY + 'px';
+		}
+
+		document.onmouseup = function(){
+			this.onmousemove = null;
+			this.onmouseup = null;
+		}
+	}
+</script>
+</body>
+</html>
